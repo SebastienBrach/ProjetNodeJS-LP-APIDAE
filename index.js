@@ -6,16 +6,21 @@ const PORT = process.env.PORT || 3000// this is very important
 
 var restdb = {
     method: 'GET',
-    url: 'https://brachnode-dc82.restdb.io/home/db/5fd1e122dcc309530002b04d/cards/5fd1e252dcc309530002b11b',
+    url: 'https://brachnode-dc82.restdb.io/rest/test1',
     headers: 
     {   'cache-control': 'no-cache',
         'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce' 
     } 
 };
 
-app.get('/', function (req, res) {
+axios.get(restdb, function (body) {
+    console.log(body);
+});
+
+app.get('/', async function (req, res) {
   const yes = axios.get(restdb)
-  const print = axios.get('https://brachnode-dc82.restdb.io/rest/Test1?q={"nom": "BRACH"}')
+  const print = axios.get('https://brachnode-dc82.restdb.io/rest/test1')
+  console.log(print)
   res.json(print)
 })
 

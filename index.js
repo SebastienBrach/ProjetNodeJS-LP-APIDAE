@@ -1,9 +1,9 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 3000 // this is very important
+const PORT = process.env.PORT || 3000// this is very important
 
 app.get('/', function (req, res) {
-  res.send('Hello salut!')
+  res.send('Salut World!')
 })
 
 app.listen(PORT, function () {

@@ -13,6 +13,16 @@ var restdb = {
     } 
 };
 
+axios.get('/test')
+  .then(function () {
+    // handle success
+    console.log(restdb);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+
 app.get('/', function (req, res) {
   res.send('Hello World!')
 })

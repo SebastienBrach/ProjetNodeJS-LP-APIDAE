@@ -3,8 +3,6 @@ const axios = require('axios')
 const app = express()
 const PORT = process.env.PORT || 3000 
 
-
-
 // pour le tp bien organiser son projet, gestion des users dans un fichier, gestion des articles dans l'autre
 
 app.get('/', function (req, res) {
@@ -28,8 +26,8 @@ app.get('/', function (req, res) {
         // const delete = await axios.delete('https://brachnode-dc82.restdb.io/rest/test1', config)
 
         //query. association avec params dans config (voir sur axios)
-        const url = 'https://brachnode-dc82.restdb.io/rest/test1'
-        const query = await axios.get(url, config)
+        const urlDB = 'https://brachnode-dc82.restdb.io/rest/test1'
+        const query = await axios.get(urlDB, config)
 
         res.json(query.data[0].nom)
         // res.json(query)
@@ -37,6 +35,19 @@ app.get('/', function (req, res) {
     }
     restdb();
 })
+
+
+app.get('/article', async function(req, res){
+    let reponse =   await articleRepository.findAll()
+    console.log(reponse)
+    res.send('ok')
+})
+
+
+function findAll(){
+    return axios.get(url, {headers})
+}
+
 
 app.listen(PORT, function () {
   console.log('Example app listening on port ' + PORT)

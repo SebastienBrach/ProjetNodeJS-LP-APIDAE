@@ -9,6 +9,10 @@ const PORT = process.env.PORT || 3000
 
 app.get('/', function (req, res) {
     async function restdb(){
+        const data = {
+            nom: "nomNode",
+            prenom : "prenomNode"
+        }
         const config = {    
             params: {
                 q:{'nom':'Brach'}

@@ -3,6 +3,8 @@ const axios = require('axios')
 const app = express()
 const PORT = process.env.PORT || 3000 
 
+
+
 // pour le tp bien organiser son projet, gestion des users dans un fichier, gestion des articles dans l'autre
 
 app.get('/', function (req, res) {
@@ -25,13 +27,11 @@ app.get('/', function (req, res) {
         const url = 'https://brachnode-dc82.restdb.io/rest/test1'
         const query = await axios.get(url, config)
 
-        // console.log(query.data[0].nom)
         res.json(query.data[0].nom)
-
     }
     restdb();
 })
 
 app.listen(PORT, function () {
-  console.log('Serveur START on PORT ' + PORT + ' !!!!')
+  console.log('Example app listening on port ' + PORT)
 })

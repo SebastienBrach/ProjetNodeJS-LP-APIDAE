@@ -35,7 +35,7 @@ const PORT = process.env.PORT || 3000
 
 // restdb()
 
-app.get('/test', function (req, res) {
+app.get('/', function (req, res) {
     async function restdb(){
         const data = {
             nom: "nomNode",
@@ -62,6 +62,7 @@ app.get('/test', function (req, res) {
         // console.log(query.data[0].nom)
     }
     // res.json(query.data[0].nom)
+    res.json({'test' : 'testOK'})
 })
 
 app.listen(PORT, function () {

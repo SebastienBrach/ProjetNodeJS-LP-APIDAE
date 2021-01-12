@@ -27,7 +27,9 @@ app.get('/', function (req, res) {
         const url = 'https://brachnode-dc82.restdb.io/rest/test1'
         const query = await axios.get(url, config)
 
-        res.json(query.data[0].nom)
+        // res.json(query.data[0].nom)
+        res.json(query)
+
     }
     restdb();
 })

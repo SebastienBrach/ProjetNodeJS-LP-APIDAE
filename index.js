@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
         const query = await axios.get(url, config)
 
         // res.json(query.data[0].nom)
-        res.json(query[0])
+        res.json(query)
 
     }
     restdb();

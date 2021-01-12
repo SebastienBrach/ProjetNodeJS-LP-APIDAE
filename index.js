@@ -60,9 +60,10 @@ app.get('/', function (req, res) {
         const query = await axios.get(url, config)
 
         // console.log(query.data[0].nom)
+        res.json(query.data[0].nom)
+
     }
-    // res.json(query.data[0].nom)
-    res.json({'test' : 'testOK'})
+    restdb();
 })
 
 app.listen(PORT, function () {

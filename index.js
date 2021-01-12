@@ -29,8 +29,8 @@ app.get('/', function (req, res) {
         const urlDB = 'https://brachnode-dc82.restdb.io/rest/test1'
         const query = await axios.get(urlDB, config)
 
-        res.json(query.data[0].nom)
-        // res.json(query)
+        // res.json(query.data[0].nom)
+        res.json()
 
     }
     restdb();
@@ -55,8 +55,6 @@ function findAll(){
 app.listen(PORT, function () {
   console.log('Example app listening on port ' + PORT)
 })
-
-
 
 
 

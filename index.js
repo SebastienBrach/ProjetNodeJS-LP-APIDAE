@@ -45,10 +45,26 @@ app.get('/article', async function(req, res){
 
 
 function findAll(){
-    return axios.get(url, {headers})
+    const urlDB = 'https://brachnode-dc82.restdb.io/rest/test1'
+    const config = {    
+        headers : {"x-apikey" : "29a59cfcac6ee5b48b1cec695706df5edabce"}
+    }
+    return axios.get(urlDB, config)
 }
-
 
 app.listen(PORT, function () {
   console.log('Example app listening on port ' + PORT)
 })
+
+
+
+
+
+
+
+
+// import de basile
+// import {CreateArticleCommand, Article, User, UpdateArticleCommand} from "model"
+// import { getArticleEntityById } from "./articleFinderService"
+// import { articleEntityToArticle } from "./entity/articleEntity"
+// import articleRepository, {CreateArticle, UpdateArticle} from "./entity/articleRepository"

@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
         const query = await axios.get(urlDB, config)
 
         // res.json(query.data[0].nom)
-        res.json()
+        res.json({'BRACH'})
 
     }
     restdb();

@@ -19,9 +19,17 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const article = require("./article.js");
 const user = require("./user.js");
+const cors = require('cors')
 const app = express();
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const PORT = process.env.PORT || 3000;
+
+app.use(cors())
+
+// var corsOptions = {
+//   origin: 'https://brach-node.herokuapp.com/',
+//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+// }
 
 app.get("/", async function (req, res) {
   res.send("Hello World !");

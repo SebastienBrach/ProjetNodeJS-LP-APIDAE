@@ -32,7 +32,7 @@ app.use(cors())
 // }
 
 app.get("/", async function (req, res) {
-  res.send("Hello World !");
+  res.json('https://www.radioclassique.fr/wp-content/thumbnails/uploads/2019/05/bieres-article-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg');
 });
 
 app.get("/article", async function (req, res) {

@@ -1,5 +1,5 @@
 // 1 - une route pour créer un compte
-// 2 - commenter le code
+// 2 - Commenter le code
 
 // - Les routes liées à la creation/suppression/modification d'articles doivent être uniquement accessibles aux personnes connectés.
 // - La seule personne pouvant modifier ou supprimer un article doit être la personne qui l'a créé.
@@ -24,8 +24,10 @@ const app = express();
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const PORT = process.env.PORT || 3000;
 
-app.use(cors())
+const jwt = require('jsonwebtoken')
 
+
+app.use(cors())
 // var corsOptions = {
 //   origin: 'https://brach-node.herokuapp.com/',
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -66,22 +68,30 @@ app.put("/update/article/:id", urlEncodedParser, async function (req, res) {
 });
 
 app.get("/private", async function (req, res) {
-  console.log(req.user);
-  res.send("Hello " + req.user.email);
+  console.log(req)
+  res.json({user: req.user.email});
 });
 
 app.post("/register", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.mail;
   const userPassword = req.body.password;
   const addUser = await user.createAccount(userEmail, userPassword);
-  res.send("oui");
+  res.json({register : addUser});
 });
+
+// app.post("/login", urlEncodedParser, async function (req, res) {
+//   const userEmail = req.body.email;
+//   const userPassword = req.body.password;
+//   const retourLogin = await user.userLogin(userEmail, userPassword);
+//   user.confirmUser(userEmail)
+//   res.json({ jwt: retourLogin });
+// });
+
 
 app.post("/login", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
-  const retourLogin = await user.userLogin(userEmail, userPassword);
-  res.json({ jwt: retourLogin });
+  jwt.sign()
 });
 
 app.listen(PORT, function () {

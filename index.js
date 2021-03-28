@@ -1,6 +1,3 @@
-// 1 - une route pour créer un compte
-// 2 - Commenter le code
-
 // - La seule personne pouvant modifier ou supprimer un article doit être la personne qui l'a créé.
 
 // Le rendu du projet sera

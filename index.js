@@ -68,19 +68,16 @@ passport.use(jwtStrategy)
 app.get("/", async function (req, res) {
   res.json({uneBonneBiere : "https://www.radioclassique.fr/wp-content/thumbnails/uploads/2019/05/bieres-article-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg"});
 });
-
-app.get("/article", async function (req, res) {
+app.get("/article", urlEncodedParser, async function (req, res) {
   let reponse = await article.getAllArticle();
   res.json(reponse.data);
 });
-
-app.get("/article/:id", passport.authenticate('jwt', {session:false}),async function (req, res) {
+app.get("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleById(id);
   res.json(reponse.data);
 });
-
-app.get("/articleUser/:id", passport.authenticate('jwt', {session:false}),async function (req, res) {
+app.get("/articleUser/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleByUserId(id);
   res.json(reponse.data);
@@ -88,7 +85,8 @@ app.get("/articleUser/:id", passport.authenticate('jwt', {session:false}),async 
 
 
 
-app.post("/add/article/:title", async function (req, res) {
+
+app.post("/article", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const title = req.params.title;
   const reponse = await article.addArticle(title);
   res.json(reponse.data.titre);
@@ -96,41 +94,29 @@ app.post("/add/article/:title", async function (req, res) {
 
 
 
-
-app.delete("/delete/article/:id", async function (req, res) {
+app.delete("/delete/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.deleteArticle(id);
   res.json(reponse.data);
 });
-
-app.put("/update/article/:id", urlEncodedParser, async function (req, res) {
+app.put("/update/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id
   const data = req.body.titre
   const reponse = await article.updateArticle(data, id)
   res.json(reponse.data)
 });
-
-app.get("/private", async function (req, res) {
-  res.json({user: req.user.email});
-});
-
-
 app.post("/register", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.mail;
   const userPassword = req.body.password;
   const addUser = await user.createAccount(userEmail, userPassword);
   res.json({register : addUser});
 });
-
-
 app.post("/login", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
   const retourLogin = await user.userLogin(userEmail, userPassword);
   res.json({ jwt: retourLogin });
 });
-
-
 app.listen(PORT, function () {
   console.log("... server on port " + PORT + " running ...");
 });

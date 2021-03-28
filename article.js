@@ -16,13 +16,10 @@ async function getArticleById(id) {
 
 async function getArticleByUserId(id) {
     config = {
-        params: {
-            q : { _id: id }
-        },
         headers : headers
     }
-    const idArticle = await axios.get(DBurl, config)
-    return(idArticle)
+    const dataArticle = await axios.get('https://brachnode-dc82.restdb.io/rest/article?q={"idUser._id" : "'+id+'"}', config)
+    return(dataArticle)
 }
 
 
@@ -64,4 +61,5 @@ module.exports = {
     addArticle : addArticle,
     deleteArticle : deleteArticle,
     updateArticle : updateArticle,
+    getArticleByUserId : getArticleByUserId,
 }

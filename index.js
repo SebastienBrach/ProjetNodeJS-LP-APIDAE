@@ -83,6 +83,7 @@ app.get("/article/:id", passport.authenticate('jwt', {session:false}),async func
 app.get("/articleUser/:id", passport.authenticate('jwt', {session:false}),async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleByUserId(id);
+  // utilisationDB.get('article?q={"idUser.i" :'+id+'}')
   res.json(reponse.data);
 });
 

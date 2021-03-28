@@ -17,14 +17,15 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const passport = require('passport')
+const passportJWT = require('passport-jwt')
 const article = require("./article.js");
 const user = require("./user.js");
 const cors = require('cors')
 const app = express();
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const PORT = process.env.PORT || 3000;
-
-const jwt = require('jsonwebtoken')
+const secret = "monPetitSecret"
 
 
 app.use(cors())
@@ -32,6 +33,37 @@ app.use(cors())
 //   origin: 'https://brach-node.herokuapp.com/',
 //   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 // }
+
+// configuration pour récup des data en BD 
+const configBD = {
+  'baseURL' : 'https://brachnode-dc82.restdb.io/rest/',
+  'headers' : { 
+    'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce',  
+    'content-type': 'application/x-www-form-urlencoded'
+  }
+}
+// utilisation de la config => ainsi on pourra faire un axios.get/post etc en changeant juste la table (vu dans la doc)
+const utilisationDB = axios.create(configDB)
+
+// utilisation de passport comme vu TP
+const ExtractJwt = passportJWT.ExtractJwt
+const JwtStrategy = passportJWT.Strategy
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: secret
+}
+const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
+  const dataUser = await axios.get("member")
+  const user = dataUser.find(user => user.mail === payload.user)
+
+  if (user) {
+    next(null, user)
+  } else {
+    next(null, false)
+  }
+})
+passport.use(jwtStrategy)
+
 
 app.get("/", async function (req, res) {
   res.json({uneBonneBiere : "https://www.radioclassique.fr/wp-content/thumbnails/uploads/2019/05/bieres-article-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg"});

@@ -1,38 +1,11 @@
 const { default: axios } = require("axios")
 const jwt = require('jsonwebtoken')
-const passport = require('passport')
-const passportJWT = require('passport-jwt')
-const secret = "monPetitSecret"
 
 const DBurl = 'https://brachnode-dc82.restdb.io/rest/member'
 const headers = { 
     'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce',  
     'content-type': 'application/x-www-form-urlencoded'
 }
-
-async function confirmUser(email){
-    const jwtOptions = {
-        jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: secret
-    }
-    const jwtStrategy = new passportJWT.Strategy(jwtOptions, async function(payload, next) {
-        config = {
-            params: {
-                q: { mail : email}
-            },
-            headers : headers
-        }
-        const user = await axios.get(DBurl, config)
-        if (user.data[0].mail === payload) {
-            next(null, user)
-        } else {
-            next(null, false)
-        } 
-    })
-    return(passport.use(jwtStrategy))
-}
-
-// passport.authenticate('jwt', { session: false }),
 
 async function createAccount(userEmail, userPassword) {
     if (!userEmail || !userPassword) {
@@ -77,5 +50,4 @@ async function userLogin(userEmail, userPassword) {
 module.exports = {
     createAccount : createAccount,
     userLogin : userLogin,
-    confirmUser : confirmUser,
 }

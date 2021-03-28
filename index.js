@@ -107,7 +107,6 @@ app.put("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:
 });
 
 
-
 app.post("/register", urlEncodedParser, async function (req, res) {
   const data = {
     mail : req.body.mail,
@@ -119,12 +118,17 @@ app.post("/register", urlEncodedParser, async function (req, res) {
 
 
 
+
+
 app.post("/login", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
   const retourLogin = await user.userLogin(userEmail, userPassword);
   res.json({ jwt: retourLogin });
 });
+
+
+
 app.listen(PORT, function () {
   console.log("... server on port " + PORT + " running ...");
 });

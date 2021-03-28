@@ -19,6 +19,7 @@ async function createAccount(data) {
         mail : data.mail, 
         password : data.password,
     }
+    console.log(newData)
     const addUser = await axios.post(DBurl, newData, config)
     return(`User created : ${addUser}`) 
 }

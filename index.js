@@ -75,7 +75,7 @@ app.get("/articleUser/:id", urlEncodedParser, passport.authenticate('jwt', {sess
   res.json(reponse.data);
 });
 
-app.post("/article", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
+app.post("/article", urlEncodedParser, async function (req, res) {
   const data = {
     titre : req.body.titre,
     contenu : req.body.contenu,

@@ -98,9 +98,12 @@ app.delete("/article/:id", urlEncodedParser, passport.authenticate('jwt', {sessi
 });
 
 
-app.put("/update/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
+app.put("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id
-  const data = req.body.titre
+  const data = {
+    titre : req.body.title,
+    contenu : req.body.contenu
+  }
   const reponse = await article.updateArticle(data, id)
   res.json(reponse.data)
 });

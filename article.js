@@ -51,7 +51,7 @@ async function updateArticle(newData, id) {
     config = {
         headers : headers
     }
-    const modif = await axios.put(DBurl+`/${id}`, {titre : newData}, config)
+    const modif = await axios.put(DBurl+`/${id}`, newData, config)
     return(modif);
 }
 

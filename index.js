@@ -16,6 +16,7 @@
 //  - l'URL de votre API + l'url de l'application finale (avec la partie Vue.js)
 
 const express = require("express");
+const axios = require('axios')
 const bodyParser = require("body-parser");
 const passport = require('passport')
 const passportJWT = require('passport-jwt')
@@ -43,7 +44,7 @@ const configBD = {
   }
 }
 // utilisation de la config => ainsi on pourra faire un axios.get/post etc en changeant juste la table (vu dans la doc)
-const utilisationDB = axios.create(configDB)
+const utilisationDB = axios.create(configBD)
 
 // utilisation de passport comme vu TP
 const ExtractJwt = passportJWT.ExtractJwt
@@ -53,9 +54,8 @@ const jwtOptions = {
   secretOrKey: secret
 }
 const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
-  const dataUser = await axios.get("member")
+  const dataUser = await utilisationDB.get("member")
   const user = dataUser.find(user => user.mail === payload.user)
-
   if (user) {
     next(null, user)
   } else {
@@ -74,7 +74,7 @@ app.get("/article", async function (req, res) {
   res.json(reponse.data);
 });
 
-app.get("/article/:id", async function (req, res) {
+app.get("/article/:id", passport.authenticate('jwt', {session:false}),async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleById(id);
   res.json(reponse.data);

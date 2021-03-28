@@ -96,8 +96,6 @@ app.delete("/article/:id", urlEncodedParser, passport.authenticate('jwt', {sessi
   const reponse = await article.deleteArticle(id);
   res.json(reponse.data);
 });
-
-
 app.put("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id
   const data = {
@@ -109,12 +107,18 @@ app.put("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:
 });
 
 
+
 app.post("/register", urlEncodedParser, async function (req, res) {
-  const userEmail = req.body.mail;
-  const userPassword = req.body.password;
-  const addUser = await user.createAccount(userEmail, userPassword);
+  const data = {
+    mail : req.body.mail,
+    password : req.body.password
+  }
+  const addUser = await user.createAccount(data);
   res.json({register : addUser});
 });
+
+
+
 app.post("/login", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;

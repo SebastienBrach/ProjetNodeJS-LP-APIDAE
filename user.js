@@ -1,5 +1,6 @@
 const { default: axios } = require("axios")
 const jwt = require('jsonwebtoken')
+const secret = "monPetitSecret"
 
 const DBurl = 'https://brachnode-dc82.restdb.io/rest/member'
 const headers = { 
@@ -43,7 +44,7 @@ async function userLogin(userEmail, userPassword) {
         return({ error: 'L\'email ou le mot de passe ne sont pas correct' })
     }
 
-    const userJwt = jwt.sign({ bdEmail }, secret)
+    const userJwt = jwt.sign({ user: bdEmail }, secret)
     return(userJwt) 
 }
 

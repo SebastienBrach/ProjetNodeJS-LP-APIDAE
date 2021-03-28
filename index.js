@@ -100,9 +100,9 @@ app.put("/update/article/:id", urlEncodedParser, async function (req, res) {
 });
 
 app.get("/private", async function (req, res) {
-  console.log(req)
   res.json({user: req.user.email});
 });
+
 
 app.post("/register", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.mail;
@@ -111,20 +111,14 @@ app.post("/register", urlEncodedParser, async function (req, res) {
   res.json({register : addUser});
 });
 
-// app.post("/login", urlEncodedParser, async function (req, res) {
-//   const userEmail = req.body.email;
-//   const userPassword = req.body.password;
-//   const retourLogin = await user.userLogin(userEmail, userPassword);
-//   user.confirmUser(userEmail)
-//   res.json({ jwt: retourLogin });
-// });
-
 
 app.post("/login", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
-  jwt.sign()
+  const retourLogin = await user.userLogin(userEmail, userPassword);
+  res.json({ jwt: retourLogin });
 });
+
 
 app.listen(PORT, function () {
   console.log("... server on port " + PORT + " running ...");

@@ -83,15 +83,19 @@ app.get("/article/:id", passport.authenticate('jwt', {session:false}),async func
 app.get("/articleUser/:id", passport.authenticate('jwt', {session:false}),async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleByUserId(id);
-  // utilisationDB.get('article?q={"idUser.i" :'+id+'}')
   res.json(reponse.data);
 });
+
+
 
 app.post("/add/article/:title", async function (req, res) {
   const title = req.params.title;
   const reponse = await article.addArticle(title);
   res.json(reponse.data.titre);
 });
+
+
+
 
 app.delete("/delete/article/:id", async function (req, res) {
   const id = req.params.id;

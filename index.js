@@ -55,7 +55,7 @@ const jwtOptions = {
 }
 const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
   const dataUser = await utilisationDB.get("member")
-  const user = dataUser.find(user => user.mail === payload.user)
+  const user = dataUser.data.find(user => user.mail === payload.user)
   if (user) {
     next(null, user)
   } else {
@@ -77,6 +77,12 @@ app.get("/article", async function (req, res) {
 app.get("/article/:id", passport.authenticate('jwt', {session:false}),async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleById(id);
+  res.json(reponse.data);
+});
+
+app.get("/articleUser/:id", passport.authenticate('jwt', {session:false}),async function (req, res) {
+  const id = req.params.id;
+  const reponse = await article.getArticleByUserId(id);
   res.json(reponse.data);
 });
 

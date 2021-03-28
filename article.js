@@ -14,6 +14,18 @@ async function getArticleById(id) {
     return(idArticle)
 }
 
+async function getArticleByUserId(id) {
+    config = {
+        params: {
+            q : { _id: id }
+        },
+        headers : headers
+    }
+    const idArticle = await axios.get(DBurl, config)
+    return(idArticle)
+}
+
+
 async function getAllArticle() {
     config = {
         headers : headers

@@ -28,7 +28,7 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const PORT = process.env.PORT || 3000;
 const secret = "monPetitSecret"
 
-
+// utilisation de cors
 app.use(cors())
 // var corsOptions = {
 //   origin: 'https://brach-node.herokuapp.com/',
@@ -64,24 +64,27 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
 })
 passport.use(jwtStrategy)
 
-
 app.get("/", async function (req, res) {
   res.json({uneBonneBiere : "https://www.radioclassique.fr/wp-content/thumbnails/uploads/2019/05/bieres-article-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg"});
 });
+
 app.get("/article", urlEncodedParser, async function (req, res) {
   let reponse = await article.getAllArticle();
   res.json(reponse.data);
 });
+
 app.get("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleById(id);
   res.json(reponse.data);
 });
+
 app.get("/articleUser/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleByUserId(id);
   res.json(reponse.data);
 });
+
 app.post("/article", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const data = {
     titre : req.body.titre,
@@ -91,11 +94,13 @@ app.post("/article", urlEncodedParser, passport.authenticate('jwt', {session:fal
   const reponse = await article.addArticle(data);
   res.json(reponse.data.titre);
 });
+
 app.delete("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.deleteArticle(id);
   res.json(reponse.data);
 });
+
 app.put("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id
   const data = {
@@ -106,7 +111,7 @@ app.put("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:
   res.json(reponse.data)
 });
 
-
+// ne fonctionne pas mais aucune idée pourquoi => code 500 lors du axios.post
 app.post("/register", urlEncodedParser, async function (req, res) {
   const data = {
     mail : req.body.mail,
@@ -116,18 +121,12 @@ app.post("/register", urlEncodedParser, async function (req, res) {
   res.json({register : addUser});
 });
 
-
-
-
-
 app.post("/login", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
   const retourLogin = await user.userLogin(userEmail, userPassword);
   res.json({ jwt: retourLogin });
 });
-
-
 
 app.listen(PORT, function () {
   console.log("... server on port " + PORT + " running ...");

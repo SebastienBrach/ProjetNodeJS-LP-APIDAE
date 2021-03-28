@@ -17,35 +17,31 @@ async function createAccount(data) {
     }
     const newData = {
         mail : data.mail, 
-        password : data.password,
+        password : data.password
     }
     console.log(newData)
     const addUser = await axios.post(DBurl, newData, config)
+    console.log(addUser)
     return(`User created : ${addUser}`) 
 }
-
 
 
 async function userLogin(userEmail, userPassword) {
     if (!userEmail || !userPassword) {
         return({ error: 'Complétez tout les champs' })
     }
-
     config = {
         params: {
             q: { mail : userEmail}
         },
         headers : headers
     }
-
     const user = await axios.get(DBurl, config)
     const bdEmail = user.data[0].mail
     const bdPassword = user.data[0].password
-
     if (!user || userPassword !== bdPassword) {
         return({ error: 'L\'email ou le mot de passe ne sont pas correct' })
     }
-
     const userJwt = jwt.sign({ user: bdEmail }, secret)
     return(userJwt) 
 }

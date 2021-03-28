@@ -85,7 +85,7 @@ app.post("/article", urlEncodedParser, passport.authenticate('jwt', {session:fal
   res.json(reponse.data.titre);
 });
 
-app.delete("/article/:id", urlEncodedParser, async function (req, res) {
+app.delete("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.deleteArticle(id);
   res.json(reponse.data);

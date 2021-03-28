@@ -63,13 +63,15 @@ app.get("/article", urlEncodedParser, async function (req, res) {
   res.json(reponse.data);
 });
 
-app.get("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
+// ici passport.authenticate('jwt', {session:false})
+app.get("/article/:id", urlEncodedParser, async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleById(id);
   res.json(reponse.data);
 });
 
-app.get("/articleUser/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
+// ici passport.authenticate('jwt', {session:false})
+app.get("/articleUser/:id", urlEncodedParser, async function (req, res) {
   const id = req.params.id;
   const reponse = await article.getArticleByUserId(id);
   res.json(reponse.data);
@@ -85,13 +87,15 @@ app.post("/article", urlEncodedParser, async function (req, res) {
   res.json(reponse.data.titre);
 });
 
-app.delete("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
+// ici passport.authenticate('jwt', {session:false})
+app.delete("/article/:id", urlEncodedParser, async function (req, res) {
   const id = req.params.id;
   const reponse = await article.deleteArticle(id);
   res.json(reponse.data);
 });
 
-app.put("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
+// ici passport.authenticate('jwt', {session:false})
+app.put("/article/:id", urlEncodedParser, async function (req, res) {
   const id = req.params.id
   const data = {
     titre : req.body.title,

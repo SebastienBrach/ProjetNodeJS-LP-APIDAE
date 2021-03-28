@@ -1,15 +1,7 @@
 // 1 - une route pour créer un compte
 // 2 - Commenter le code
 
-// - Les routes liées à la creation/suppression/modification d'articles doivent être uniquement accessibles aux personnes connectés.
 // - La seule personne pouvant modifier ou supprimer un article doit être la personne qui l'a créé.
-
-// - Les utilisateurs ainsi que les articles seront stockés dans restdb comme vu en TP.
-
-// - Le projet doit être déployé sur Heroku.
-
-// - ATTENTION 1 : l'api doit communiquer uniquement en JSON (res.json avec express).
-// - ATTENTION 2 : pour communiquer avec votre serveur express depuis une page web, vous aurez besoin de gérer les CORS. voir le middleware express cors
 
 // Le rendu du projet sera
 //  - l'URL d'un github contenant les sources de votre projet ainsi qu'un readme qui explique comment lancer/installer le projet.
@@ -64,6 +56,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
 })
 passport.use(jwtStrategy)
 
+// meilleure route du projet
 app.get("/", async function (req, res) {
   res.json({uneBonneBiere : "https://www.radioclassique.fr/wp-content/thumbnails/uploads/2019/05/bieres-article-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg"});
 });

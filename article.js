@@ -31,11 +31,11 @@ async function getAllArticle() {
     return(allArticle)
 }
 
-async function addArticle(nom) {
+async function addArticle(data) {
     config = {
         headers : headers
     }
-    const addArticle = await axios.post(DBurl, {titre : nom}, config)
+    const addArticle = await axios.post(DBurl, data, config)
     return(addArticle)
 }
 

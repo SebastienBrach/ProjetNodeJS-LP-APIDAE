@@ -82,29 +82,30 @@ app.get("/articleUser/:id", urlEncodedParser, passport.authenticate('jwt', {sess
   const reponse = await article.getArticleByUserId(id);
   res.json(reponse.data);
 });
-
-
-
-
 app.post("/article", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
-  const title = req.params.title;
-  const reponse = await article.addArticle(title);
+  const data = {
+    titre : req.body.titre,
+    contenu : req.body.contenu,
+    mail : req.body.mail
+  }
+  const reponse = await article.addArticle(data);
   res.json(reponse.data.titre);
 });
-
-
-
-app.delete("/delete/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
+app.delete("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id;
   const reponse = await article.deleteArticle(id);
   res.json(reponse.data);
 });
+
+
 app.put("/update/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
   const id = req.params.id
   const data = req.body.titre
   const reponse = await article.updateArticle(data, id)
   res.json(reponse.data)
 });
+
+
 app.post("/register", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.mail;
   const userPassword = req.body.password;

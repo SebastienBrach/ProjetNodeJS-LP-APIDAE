@@ -76,7 +76,7 @@ app.get("/articleUser/:id", urlEncodedParser, async function (req, res) {
   res.json(reponse.data);
 });
 
-app.post("/article", urlEncodedParser, async function (req, res) {
+app.post("/addarticle", urlEncodedParser, async function (req, res) {
   const data = {
     titre : req.body.titre,
     contenu : req.body.contenu,

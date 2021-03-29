@@ -53,7 +53,6 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
 })
 passport.use(jwtStrategy)
 
-// meilleure route du projet
 app.get("/", async function (req, res) {
   res.json({uneBonneBiere : "https://www.radioclassique.fr/wp-content/thumbnails/uploads/2019/05/bieres-article-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg"});
 });

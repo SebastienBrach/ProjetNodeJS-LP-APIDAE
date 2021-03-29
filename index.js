@@ -82,9 +82,8 @@ app.post("/addarticle", urlEncodedParser, async function (req, res) {
     contenu : req.body.contenu,
     mail : req.body.mail
   }
-  //const reponse = await article.addArticle(data);
-  //res.json(reponse.data.titre);
-  res.json(data.titre);
+  const reponse = await article.addArticle(data);
+  res.json(reponse.data.titre);
 });
 
 // ici passport.authenticate('jwt', {session:false})

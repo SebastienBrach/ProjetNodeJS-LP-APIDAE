@@ -12,18 +12,34 @@ async function createAccount(email, pass) {
     // /*if (!email || !password) {
     //     return({ error: 'Complétez tout les champs' })
     // }*/
-    config = {
-        headers : headers
+    // config = {
+    //     headers : headers
+    // }
+    // const url = 'https://brachnode-dc82.restdb.io/rest/member'
+    // const config = {
+    //     headers: {
+    //         'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce'
+    //     }
+    // }
+    // const data = {
+    //     mail : email, 
+    //     password : pass
+    // }
+    // const response = await axios.post(DBurl, data, config)
+
+    const url = 'https://brachnode-dc82.restdb.io/rest/member'
+    const config = {
+        headers: {
+            'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce'
+        }
     }
     const data = {
         mail : email, 
         password : pass
     }
-    const response = await axios.post(DBurl, data, config)
-    //const addUser = await axios.post(DBurl, data, config)
-    //console.log(addUser)
-    //return(`User created : ${addUser}`)
+    const response = await axios.post(url, data, config)
     return({'user':response})
+
 }
 
 

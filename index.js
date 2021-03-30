@@ -47,7 +47,7 @@ const jwtOptions = {
 }
 const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
   const dataUser = await utilisationDB.get("member")
-  const user = dataUser.data.find(user => user.mail === payload.user)
+  const user = dataUser.data.find(member => member.mail === payload.user)
   if (user) {
     next(null, user)
   } else {

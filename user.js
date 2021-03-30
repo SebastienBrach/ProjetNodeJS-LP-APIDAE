@@ -8,20 +8,20 @@ const headers = {
     'content-type': 'application/x-www-form-urlencoded'
 }
 
-async function createAccount(data) {
-    if (!data.mail || !data.password) {
+async function createAccount(email, pass) {
+    if (!mail || !password) {
         return({ error: 'Complétez tout les champs' })
     }
     config = {
         headers : headers
     }
-    const newData = {
-        mail : data.mail, 
-        password : data.password
+    const data = {
+        mail : email, 
+        password : pass
     }
-    console.log(newData)
-    const addUser = await axios.post(DBurl, newData, config)
-    console.log(addUser)
+    //console.log(newData)
+    const addUser = await axios.post(DBurl, data, config)
+    //console.log(addUser)
     return(`User created : ${addUser}`) 
 }
 

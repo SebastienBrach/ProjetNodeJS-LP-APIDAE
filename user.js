@@ -9,9 +9,9 @@ const headers = {
 }
 
 async function createAccount(email, pass) {
-    /*if (!email || !password) {
+    if (!email || !password) {
         return({ error: 'Complétez tout les champs' })
-    }*/
+    }
     config = {
         headers : headers
     }
@@ -20,10 +20,7 @@ async function createAccount(email, pass) {
         password : pass
     }
     const response = await axios.post(DBurl, data, config)
-    //const addUser = await axios.post(DBurl, data, config)
-    //console.log(addUser)
-    //return(`User created : ${addUser}`)
-    return(response)
+    return({'user':response})
 }
 
 

@@ -107,12 +107,9 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
   res.json(reponse.data)
 });
 
-// ne fonctionne pas mais aucune idée pourquoi => code 500 lors du axios.post
 app.post("/register", urlEncodedParser, async function (req, res) {
-  //const addUser = await user.createAccount(req.body.mail, req.body.password);
-  //res.json(addUser);
-  const NewUser = await user.createAccount(req.body.mail, req.body.password)
-  res.send(NewUser)
+  const user = await user.createAccount(req.body.mail, req.body.password)
+  res.json({'user' : user})
 });
 
 app.post("/login", urlEncodedParser, async function (req, res) {

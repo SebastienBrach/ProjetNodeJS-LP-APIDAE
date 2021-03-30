@@ -14,7 +14,7 @@ const user = require("./user.js");
 const cors = require('cors')
 const app = express();
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const secret = "monPetitSecret"
 
 app.use(bodyParser.json())
@@ -107,9 +107,12 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
   res.json(reponse.data)
 });
 
+// ne fonctionne pas mais aucune idée pourquoi => code 500 lors du axios.post
 app.post("/register", urlEncodedParser, async function (req, res) {
-  const user = await user.createAccount(req.body.mail, req.body.password)
-  res.send('OK')
+  //const addUser = await user.createAccount(req.body.mail, req.body.password);
+  //res.json(addUser);
+  //const NewUser = await user.createAccount(req.body.mail, req.body.password)
+  res.json(req.body)
 });
 
 app.post("/login", urlEncodedParser, async function (req, res) {

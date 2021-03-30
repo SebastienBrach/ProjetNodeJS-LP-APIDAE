@@ -91,11 +91,6 @@ app.post("/addarticle", urlEncodedParser, async function (req, res) {
 
 // ici passport.authenticate('jwt', {session:false})
 app.delete("/article/:id", urlEncodedParser, passport.authenticate('jwt', {session:false}), async function (req, res) {
-  const dataUser = await utilisationDB.get("member")
-  const user = dataUser.data.find(user => user.mail === payload.user)
-  console.log('user')
-
-
   const id = req.params.id;
   const reponse = await article.deleteArticle(id);
   res.json(reponse.data);

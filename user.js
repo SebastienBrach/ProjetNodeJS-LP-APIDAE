@@ -9,7 +9,7 @@ const headers = {
 }
 
 async function createAccount(email, pass) {
-    if (!mail || !password) {
+    if (!email || !password) {
         return({ error: 'Complétez tout les champs' })
     }
     config = {

@@ -33,7 +33,7 @@ async function getAllArticle() {
 
 async function addArticle(data) {
     config = {
-        headers : headers
+        headers : headers,
     }
     const addArticle = await axios.post(DBurl, data, config)
     return(addArticle)

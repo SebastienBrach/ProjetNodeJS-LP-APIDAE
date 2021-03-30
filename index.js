@@ -111,7 +111,7 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
 app.post("/register", urlEncodedParser, async function (req, res) {
   //const addUser = await user.createAccount(req.body.mail, req.body.password);
   //res.json(addUser);
-  if (!email || !password) {
+  if (!req.body.mail || !req.body.password) {
     res.json({ error: 'Complétez tout les champs' })
   } else {
     const NewUser = await user.createAccount(req.body.mail, req.body.password)

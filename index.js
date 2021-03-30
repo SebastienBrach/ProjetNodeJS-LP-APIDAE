@@ -29,7 +29,8 @@ const configBD = {
   'baseURL' : 'https://brachnode-dc82.restdb.io/rest/',
   'headers' : { 
     'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce',  
-    'content-type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json',
+    'cache-Control': 'no-cache',
   }
 }
 // utilisation de la config => ainsi on pourra faire un axios.get/post etc en changeant juste la table (vu dans la doc)

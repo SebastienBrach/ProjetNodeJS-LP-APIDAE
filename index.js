@@ -111,8 +111,12 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
 app.post("/register", urlEncodedParser, async function (req, res) {
   //const addUser = await user.createAccount(req.body.mail, req.body.password);
   //res.json(addUser);
-  const NewUser = await user.createAccount(req.body.mail, req.body.password)
-  res.json(NewUser)
+  if (!email || !password) {
+    res.json({ error: 'Complétez tout les champs' })
+  } else {
+    const NewUser = await user.createAccount(req.body.mail, req.body.password)
+    res.json("Compte créé")
+  }
 });
 
 app.post("/login", urlEncodedParser, async function (req, res) {

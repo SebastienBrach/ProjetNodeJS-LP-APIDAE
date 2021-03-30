@@ -109,7 +109,7 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
 
 app.post("/register", urlEncodedParser, async function (req, res) {
   const user = await user.createAccount(req.body.mail, req.body.password)
-  res.json(user)
+  res.send('OK')
 });
 
 app.post("/login", urlEncodedParser, async function (req, res) {

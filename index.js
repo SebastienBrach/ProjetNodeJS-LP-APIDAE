@@ -83,6 +83,7 @@ app.post("/addarticle", urlEncodedParser, async function (req, res) {
     contenu : req.body.contenu,
     mail : req.body.mail
   }
+  console.log(data)
   const reponse = await article.addArticle(data);
   res.json(data);
 });

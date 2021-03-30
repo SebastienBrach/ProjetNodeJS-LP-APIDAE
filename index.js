@@ -111,7 +111,8 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
 app.post("/register", urlEncodedParser, async function (req, res) {
   //const addUser = await user.createAccount(req.body.mail, req.body.password);
   //res.json(addUser);
-  res.json(req.body.mail)
+  const NewUser = await user.createAccount(req.body.mail, req.body.password)
+  res.send(NewUser)
 });
 
 app.post("/login", urlEncodedParser, async function (req, res) {

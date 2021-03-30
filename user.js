@@ -38,7 +38,7 @@ async function createAccount(email, pass) {
         password : pass
     }
     const response = await axios.post(url, data, config)
-    return({'user':response})
+    return(response)
 
 }
 

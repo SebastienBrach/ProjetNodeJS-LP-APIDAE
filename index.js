@@ -14,7 +14,7 @@ const user = require("./user.js");
 const cors = require('cors')
 const app = express();
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const secret = "monPetitSecret"
 
 app.use(bodyParser.json())
@@ -109,7 +109,7 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
 
 app.post("/register", urlEncodedParser, async function (req, res) {
   const user = await user.createAccount(req.body.mail, req.body.password)
-  res.json({'user' : user})
+  res.json(user)
 });
 
 app.post("/login", urlEncodedParser, async function (req, res) {

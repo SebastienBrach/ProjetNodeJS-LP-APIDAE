@@ -17,6 +17,8 @@ const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const PORT = process.env.PORT || 3000;
 const secret = "monPetitSecret"
 
+app.use(bodyParser.json())
+
 // utilisation de cors
 app.use(cors())
 // var corsOptions = {
@@ -77,15 +79,14 @@ app.get("/articleUser/:id", urlEncodedParser, async function (req, res) {
   res.json(reponse.data);
 });
 
-app.post("/addarticle", urlEncodedParser, async function (req, res) {
+app.post("/addarticle", async function (req, res) {
   const data = {
     titre : req.body.titre,
     contenu : req.body.contenu,
     mail : req.body.mail
   }
-  console.log(data)
   const reponse = await article.addArticle(data);
-  res.json(data);
+  res.json(reponse.data);
 });
 
 // ici passport.authenticate('jwt', {session:false})

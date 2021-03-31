@@ -34,12 +34,12 @@ async function userLogin(userEmail, userPassword) {
         headers : headers
     }
     const user = await axios.get(DBurl, config)
-    const bdEmail = user.data[0].mail
-    const bdPassword = user.data[0].password
-    if (!user || userPassword !== bdPassword) {
+    const mail = user.data[0].mail
+    const password = user.data[0].password
+    if (!user || userPassword !== password) {
         return({ error: 'L\'email ou le mot de passe ne sont pas correct' })
     }
-    const userJwt = jwt.sign({ user: bdEmail }, secret)
+    const userJwt = jwt.sign({ user: user.mail }, secret)
     return(userJwt) 
 }
 

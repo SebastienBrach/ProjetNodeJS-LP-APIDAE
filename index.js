@@ -67,14 +67,19 @@ app.get("/articleUser/:id", urlEncodedParser, async function (req, res) {
   res.json(reponse.data);
 });
 
+// ici passport.authenticate('jwt', {session:false})
 app.post("/addarticle", urlEncodedParser, async function (req, res) {
   const data = {
     titre : req.body.titre,
     contenu : req.body.contenu,
     mail : req.body.mail
   }
-  const reponse = await article.addArticle(data);
-  res.json(reponse.data);
+  if(!data.titre || !data.contenu){
+    res.json({error : "L'article doit avoir un titre et un contenu"})
+  } else {
+    const reponse = await article.addArticle(data);
+    res.json(reponse.data);
+  }
 });
 
 // ici passport.authenticate('jwt', {session:false})
@@ -95,23 +100,24 @@ app.put("/article/:id", urlEncodedParser, async function (req, res) {
   res.json(reponse.data)
 });
 
-// ne fonctionne pas mais aucune idée pourquoi => code 500 lors du axios.post
 app.post("/register", urlEncodedParser, async function (req, res) {
-  //const addUser = await user.createAccount(req.body.mail, req.body.password);
-  //res.json(addUser);
-  if (!req.body.mail || !req.body.password) {
+  const data = {
+    mail : req.body.mail,
+    password : req.body.password,
+  }
+  if (!data.mail || !data.password) {
     res.json({ error: 'Complétez tout les champs' })
   } else {
-    const NewUser = await user.createAccount(req.body.mail, req.body.password)
-    res.json("Compte créé")
+    const NewUser = await user.createAccount(data.mail, data.password)
+    res.json(NewUser)
   }
 });
 
 app.post("/login", urlEncodedParser, async function (req, res) {
   const userEmail = req.body.email;
   const userPassword = req.body.password;
-  const retourLogin = await user.userLogin(userEmail, userPassword);
-  res.json({ jwt: retourLogin });
+  const retourJWT = await user.userLogin(userEmail, userPassword);
+  res.json({ jwt: retourJWT });
 });
 
 app.listen(PORT, function () {

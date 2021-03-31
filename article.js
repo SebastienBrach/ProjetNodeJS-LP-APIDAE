@@ -1,7 +1,8 @@
 const { default: axios } = require("axios")
-
 const DBurl = 'https://brachnode-dc82.restdb.io/rest/article'
-const headers = { 'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce' }
+const headers = { 
+    'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce' 
+}
 
 async function getArticleById(id) {
     config = {
@@ -9,7 +10,7 @@ async function getArticleById(id) {
             q : { _id: id }
         },
         headers : headers
-    }
+    }  
     const idArticle = await axios.get(DBurl, config)
     return(idArticle)
 }

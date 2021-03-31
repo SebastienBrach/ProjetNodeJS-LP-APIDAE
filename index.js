@@ -1,25 +1,17 @@
-// - La seule personne pouvant modifier ou supprimer un article doit être la personne qui l'a créé.
-
-// Le rendu du projet sera
-//  - l'URL d'un github contenant les sources de votre projet ainsi qu'un readme qui explique comment lancer/installer le projet.
-//  - l'URL de votre API + l'url de l'application finale (avec la partie Vue.js)
-
 const express = require("express");
 const axios = require('axios')
 const bodyParser = require("body-parser");
 const passport = require('passport')
 const passportJWT = require('passport-jwt')
-const article = require("./article.js");
-const user = require("./user.js");
 const cors = require('cors')
 const app = express();
 const urlEncodedParser = bodyParser.urlencoded({ extended: false });
 const PORT = process.env.PORT || 3001;
 const secret = "monPetitSecret"
+const article = require("./article.js");
+const user = require("./user.js");
 
 app.use(bodyParser.json())
-
-// utilisation de cors
 app.use(cors())
 // var corsOptions = {
 //   origin: 'https://brach-node.herokuapp.com/',
@@ -47,7 +39,7 @@ const jwtOptions = {
 }
 const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
   const dataUser = await utilisationDB.get("member")
-  const user = dataUser.data.find(member => member.mail === payload.user)
+  const user = dataUser.data.find(user => user.mail === payload.user)
   if (user) {
     next(null, user)
   } else {
@@ -56,11 +48,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, async function(payload, next) {
 })
 passport.use(jwtStrategy)
 
-app.get("/", async function (req, res) {
-  res.json({uneBonneBiere : "https://www.radioclassique.fr/wp-content/thumbnails/uploads/2019/05/bieres-article-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg"});
-});
-
-app.get("/article", urlEncodedParser, async function (req, res) {
+app.get("/article", async function (req, res) {
   let reponse = await article.getAllArticle();
   res.json(reponse.data);
 });

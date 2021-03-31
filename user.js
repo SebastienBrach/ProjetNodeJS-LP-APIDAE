@@ -1,7 +1,6 @@
 const { default: axios } = require("axios")
 const jwt = require('jsonwebtoken')
 const secret = "monPetitSecret"
-
 const DBurl = 'https://brachnode-dc82.restdb.io/rest/member'
 const headers = { 
     'x-apikey': '29a59cfcac6ee5b48b1cec695706df5edabce',  
